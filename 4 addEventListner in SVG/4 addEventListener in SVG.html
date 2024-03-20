@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>4 addEventListener in SVG</title>
+  <style type="text/css">
+    /* CSS styles for non-responsive elements */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+    }
+
+    svg {
+      display: block;
+      margin: auto;
+      max-width: 100%;
+      height: auto;
+    }
+
+    .myCircle {
+      cursor: pointer;
+    }
+        /* This content is remain constant in whole scenario */
+    #who_we_serve{
+      margin-top:-355px;
+      margin-left: 44%;
+      font-size: 20px;
+      color:#fff;
+      font-weight: 600px;
+    }
+
+    /* This content is the main heading shown in the middle of a circle */
+    .main_heading{
+      margin-top: 05%;
+      margin-left:0%;
+      font-size: 37px;
+      color:white;
+      text-align: center;
+    }
+    .description{   
+      margin-top: 20px;
+      margin-left: 30px;
+      width: 25%;
+      margin-bottom: 140px;
+      color:white;
+    }
+
+    /* CSS styles for responsive elements */
+    @media screen and (min-width: 1400px) {
+
+      #who_we_serve{
+        margin-top:-455px;
+      }
+      /* Adjust styles for laptop screens */
+      #circle1 {
+        cx: 50%;
+        cy: 8%;
+      }
+      
+      #circle2 {
+        cx: 66.7%;
+        cy: 50%;
+      }
+
+      #circle3 {
+        cx: 50%;
+        cy: 92%;
+      }
+
+      #circle4 {
+        cx: 33.5%;
+        cy: 50%;
+      }
+      #backgroundImage{
+        object-fit: cover;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<svg width="1920" height="748" viewBox="0 0 1920 748" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">    
+
+  <!--background color-->
+  <image id="backgroundImage" xlink:href="DBS-S7-P1.webp" style="mix-blend-mode:multiply" width="1920" height="748"/>
+    
+
+  <!-- Internal Background color -->
+  <circle id="shape" cx="50%" cy="50%" r="192" fill="#374F74"/>
+
+  <!-- Dash array -->
+  <circle cx="50%" cy="50%" r="317" stroke="#D6D5D4" stroke-width="2" stroke-dasharray="15 15"/>
+
+  <!-- Orange Line -->
+  <!-- Defining Orange Line for all 4 points -->
+  <defs>
+    <g id="orangePath">
+      <path class="star" d="M50% 50% C50% 10% 90% 50% 50% 90%"/>
+    </g>
+  </defs>
+
+  <!-- Use tag is used to call that template -->
+  <use xlink:href="#orangePath" class="firstSection"></use>
+  <use xlink:href="#orangePath" class="secondSection"></use>
+  <use xlink:href="#orangePath" class="thirdSection"></use>
+  <use xlink:href="#orangePath" class="fourthSection"></use>
+
+  <!-- 4 circles that are choosen for click event -->
+  <circle id="circle1" class="myCircle" cx="50%" cy="8%" r="14" fill="#EDE7E7" stroke="#ED7722" stroke-width="5"/>
+  <circle id="circle3" class="myCircle" cx="50%" cy="92%" r="10" fill="#EDE7E7"/>
+  <circle id="circle2" class="myCircle" cx="66.7%" cy="50%" r="10" fill="#EDE7E7"/>
+  <circle id="circle4" class="myCircle" cx="33.5%" cy="50%" r="10" fill="#EDE7E7"/>
+
+</svg>
+
+<p id="who_we_serve">Who "WE" Serve?</p>
+  <div class="main_heading">
+    <p id="mainHidden1" style="display:block;">Healthcare Systems</p>
+    <p id="mainHidden2" style="display:none;">Urgent Care</p>
+    <p id="mainHidden3" style="display:none;">Private Practices</p>
+    <p id="mainHidden4" style="display:none;">Other Specialties</p>
+  </div>
+  <p id="hiddenParagraph1" style="display:block;" class="description"><b style="font-size: 26px;">Healthcare Systems</b><br>We are supporting healthcare systems for billing that have dermatology physicians to ease their burden.</p>
+  <p id="hiddenParagraph2" style="display:none;" class="description"><b style="font-size: 26px;">Urgent Care</b><br>Can you go to urgent care for dermatology and face trouble in managing your billing system? If yes, Logic BPO is your solution.</p>
+  <p id="hiddenParagraph3" style="display:none;" class="description"><b style="font-size: 26px;">Private Practices</b><br>If you are a private dermatology practice you can outsource your billing services to Logic BPO for a smooth billing system.</p>
+  <p id="hiddenParagraph4" style="display:none;" class="description"><b style="font-size: 26px;">Other Specialties</b><br>We are not just restricted to dermatology, we serve more specialities like plastic surgery, chiropractor, dental practices and many more. </p>
+
+<!-- Changing Heading that placed between the buttons-->
+  <script>
+      // Get all circle elements
+      var circles = document.querySelectorAll('.myCircle');
+      // Add click event listeners to each circle
+      circles.forEach(function(circle) {
+        circle.addEventListener('click', function() {
+          // Hide all paragraphs
+            var paragraphs = document.querySelectorAll('p[id^="mainHidden"]');
+            paragraphs.forEach(function(paragraph) {
+              paragraph.style.display = 'none';
+          });
+
+        // Show the corresponding paragraph
+        var idCircle = circle.getAttribute('id').replace('circle', ''); // Get the circle number
+        var mainHidden = document.getElementById('mainHidden' + idCircle);
+        mainHidden.style.display = 'block';
+      });
+      });
+    </script>
+
+    <!-- Changing Content of Heading and Paragraph -->
+    <script>
+      // Get all circle elements
+      var circles = document.querySelectorAll('.myCircle');
+      // Add click event listeners to each circle
+      circles.forEach(function(circle) {
+        circle.addEventListener('click', function() {
+          // Hide all paragraphs
+            var paragraphs = document.querySelectorAll('p[id^="hiddenParagraph"]');
+            paragraphs.forEach(function(paragraph) {
+              paragraph.style.display = 'none';
+          });
+
+        // Show the corresponding paragraph
+        var circleId = circle.getAttribute('id').replace('circle', ''); // Get the circle number
+        var hiddenParagraph = document.getElementById('hiddenParagraph' + circleId);
+        hiddenParagraph.style.display = 'block';
+      });
+      });
+    </script>
+
+    <!-- Changing Background Color and Button Color-->
+    <script>
+      var circles = document.querySelectorAll('.myCircle');
+      var background = document.getElementById('background');
+
+      circles.forEach(function(circle, index) {
+      circle.addEventListener('click', function() {
+          // Reset all circles to default color
+          circles.forEach(function(circle) {
+          circle.setAttribute('fill', 'white');
+          circle.setAttribute('stroke', 'white');
+          circle.setAttribute('stroke-width','0');
+          circle.setAttribute('r','10');
+        });
+
+        // Change the clicked circle's color
+        circle.setAttribute('fill', 'white');
+        circle.setAttribute('stroke', '#ED7722');
+        circle.setAttribute('stroke-width','5');
+        circle.setAttribute('r','14');
+
+        // Change the background color based on the index of the clicked circle
+        switch (index) {
+          case 0:
+              document.getElementById('backgroundImage').setAttribute('xlink:href', 'DBS-S7-P1.webp');
+              break;
+          case 1:
+              document.getElementById('backgroundImage').setAttribute('xlink:href', 'DBS-S7-P2.webp');
+              break;
+          case 2:
+              document.getElementById('backgroundImage').setAttribute('xlink:href', 'DBS-S7-P3.webp');
+              break;
+          case 3:
+              document.getElementById('backgroundImage').setAttribute('xlink:href', 'DBS-S7-P4.webp');
+              break;
+          default:
+              document.getElementById('backgroundImage').setAttribute('xlink:href', 'DBS-S7-P1.webp');
+            }
+          });
+    });
+</script>
+</body>
+</html>
